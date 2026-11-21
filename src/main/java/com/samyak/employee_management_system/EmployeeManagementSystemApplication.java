@@ -11,3 +11,16 @@ public class EmployeeManagementSystemApplication {
     }
 
 }
+
+// requestmapping
+// get, post,delete,put mapping
+// entity
+// column
+//  getter
+//setter
+// allarguments
+// noargs
+// autowire
+//@table
+//id
+// restcontroller

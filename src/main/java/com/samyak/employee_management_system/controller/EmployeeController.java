@@ -11,6 +11,8 @@ import java.util.List;
 @RequestMapping("/api/employees")
 public class EmployeeController {
 
+    // @query paramter, @requestParam (paramter)
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
