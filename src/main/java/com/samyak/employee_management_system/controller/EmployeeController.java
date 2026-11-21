@@ -16,7 +16,8 @@ public class EmployeeController {
 
     // 1. Post: Add a new employee
     @PostMapping
-    public Employee addEmployee(@RequestBody Employee employee) {
+    public Employee addEmployee(@RequestBody Employee employee)// Request Body so we want through body and not header(url)
+    {
         return employeeRepository.save(employee);
     }
 
@@ -41,14 +42,13 @@ public class EmployeeController {
     }
 
     // 5. DELETE: Delete employee by ID
-    @DeleteMapping("/{id}")
-    public String deleteEmployee(@PathVariable Long id) {
+    @DeleteMapping("/{id}")//Handles HTTP DELETE requests. Used to delete an employee using their ID.
+    public String deleteEmployee(@PathVariable Long id)
+    // @PathVariable: Extracts the employee ID from the URL.
+    {
         employeeRepository.deleteById(id);
         return "Employee deleted successfully!";
     }
 
-    // @DeleteMapping("/{id}"): Handles HTTP DELETE requests. Used to delete an employee using their ID.
-    // @PathVariable: Extracts the employee ID from the URL.
-    // deleteById(): Deletes the employee record matching the given ID.
 
 }
