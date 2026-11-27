@@ -1,7 +1,7 @@
 package com.samyak.employee_management_system.controller;
 
 import com.samyak.employee_management_system.entity.Employee;
-import com.samyak.employee_management_system.repository.EmployeeRepository;
+import com.samyak.employee_management_system.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,46 +11,38 @@ import java.util.List;
 @RequestMapping("/api/employees")
 public class EmployeeController {
 
-    // @query paramter, @requestParam (paramter)
-
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
-    // 1. Post: Add a new employee
+    // 1. POST: Add a new employee
     @PostMapping
-    public Employee addEmployee(@RequestBody Employee employee)// Request Body so we want through body and not header(url)
-    {
-        return employeeRepository.save(employee);
+    public Employee addEmployee(@RequestBody Employee employee) {
+        return employeeService.addEmployee(employee);
     }
 
     // 2. GET: Get all employees
     @GetMapping
     public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll(); // Returning all Data from Database to client/browser
+        return employeeService.getAllEmployees();
     }
 
     // 3. GET: Get employee by ID
     @GetMapping("/{id}")
     public Employee getEmployeeById(@PathVariable Long id) {
-        return employeeRepository.findById(id).orElse(null);
+        return employeeService.getEmployeeById(id);
     }
 
     // 4. PUT: Update employee
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable Long id,
-                                   @RequestBody Employee employee) {
-        employee.setId(id);
-        return employeeRepository.save(employee);
+    public Employee updateEmployee(
+            @PathVariable Long id,
+            @RequestBody Employee employee) {
+        return employeeService.updateEmployee(id, employee);
     }
 
     // 5. DELETE: Delete employee by ID
-    @DeleteMapping("/{id}")//Handles HTTP DELETE requests. Used to delete an employee using their ID.
-    public String deleteEmployee(@PathVariable Long id)
-    // @PathVariable: Extracts the employee ID from the URL.
-    {
-        employeeRepository.deleteById(id);
-        return "Employee deleted successfully!";
+    @DeleteMapping("/{id}")
+    public String deleteEmployee(@PathVariable Long id) {
+        return employeeService.deleteEmployee(id);
     }
-
-
 }
